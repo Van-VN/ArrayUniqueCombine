@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        font-family: Arial, Helvetica, sans-serif;
+        box-sizing: border-box;
+      }
+      input {
+        padding: 10px 30px;
+        height: 40px;
+        /* width: 20%; */
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <input
+      type="text"
+      placeholder="Nhập các phần tử trong Array, cách nhau bằng dấu ','"
+      id="inputArr"
+      oninput="arrCombine()"
+      style="width: 30%"
+    />
+    <input
+      type="number"
+      placeholder="Nhập số K"
+      min="0"
+      step="1"
+      id="numK"
+      oninput="arrCombine()"
+      style="width: 10%"
+    />
+    <p>Kết quả:</p>
+    <p id="result"></p>
+  </body>
+</html>
+<script>
+  function arrCombine() {
+    let result = [];
+    let arr = document.getElementById("inputArr").value;
+    arr = arr.split(",");
+    let k = document.getElementById("numK").value;
+    let func = (emptyArr, arr, k) => {
+      for (let i = 0; i < arr.length; i++) {
+        let tempArr = emptyArr.concat(arr[i]);
+        if (k === 1) {
+          result.push(tempArr);
+        } else {
+          func(tempArr, arr.slice(i + 1), k - 1);
+        }
+      }
+    };
+    func([], arr, k);
+    document.getElementById("result").innerText = JSON.stringify(result);
+  }
+</script>
